@@ -1,9 +1,8 @@
 const youtubedl = require("youtube-dl-exec");
-
 const scrapYouTube = async (req, res, next) => {
     try {
         const { url } = req.body;
-  
+
         if (!url) {
             return res
                 .status(400)
