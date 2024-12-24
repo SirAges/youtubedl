@@ -11,7 +11,7 @@ const youRoute = require("./routes/youRoute");
 const app = express();
 
 // Server port
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 5000;
 
 // MongoDB connection URL and database name (from environment variables)
 const MONGO_URL = process.env.MONGO_URL;
