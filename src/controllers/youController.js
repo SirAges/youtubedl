@@ -20,9 +20,9 @@ const scrapYouTube = async (req, res, next) => {
             addHeader: ["referer:youtube.com", "user-agent:googlebot"],
             cookies: `${path.resolve(__dirname, "../../cookie.txt")}`
         });
-        if (output) {
+      
             return res.status(200).json(output.url);
-        }
+        
     } catch (error) {
         console.error("Error inserting YouTube links:", error);
               return res.status(500).json(error);
