@@ -9,19 +9,21 @@ const scrapYouTube = async (req, res, next) => {
         for (let i = 0; i < youtube_links.length; i++) {
             let item = youtube_links[i];
             const url = item.url;
+            console.log("url", url);
+            if (url) {
+                const output = await youtubedl(url, {
+                    dumpSingleJson: true,
+                    noCheckCertificates: true,
+                    noWarnings: true,
+                    preferFreeFormats: true,
+                    addHeader: ["referer:youtube.com", "user-agent:googlebot"],
+                    cookies: `${path.resolve(__dirname, "../../cookie.txt")}`
+                });
 
-            const output = await youtubedl(url, {
-                dumpSingleJson: true,
-                noCheckCertificates: true,
-                noWarnings: true,
-                preferFreeFormats: true,
-                addHeader: ["referer:youtube.com", "user-agent:googlebot"],
-                cookies: `${path.resolve(__dirname, "../../cookie.txt")}`
-            });
+                item.url = output.url;
 
-            item.url = output.url;
-
-            console.log("youtube_links", item);
+                console.log("youtube_links", item);
+            }
         }
 
         return res.status(200).json({
