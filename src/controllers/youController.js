@@ -14,7 +14,8 @@ const scrapYouTube = async (req, res, next) => {
             noCheckCertificates: true,
             noWarnings: true,
             preferFreeFormats: true,
-            addHeader: ["referer:youtube.com", "user-agent:googlebot","x-client-data: CLDbygEIk9vMAQ=="]
+            cookies: "CLDbygEIk9vMAQ==",
+            addHeader: ["referer:youtube.com", "user-agent:googlebot"]
         });
 
         return res.status(200).json({
