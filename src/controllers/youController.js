@@ -20,9 +20,7 @@ const scrapYouTube = async (req, res, next) => {
             cookies: `${path.resolve(__dirname, "../../cookie.txt")}`
         });
 
-        
-            return res.status(200).json(output.url);
-        
+        return res.status(200).json({url:output?.url});
     } catch (error) {
         console.error("Error inserting YouTube links:", error);
     }
