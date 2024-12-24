@@ -1,26 +1,29 @@
 const youtubedl = require("youtube-dl-exec");
+const { youtube_links } = require("../lib/data");
 const scrapYouTube = async (req, res, next) => {
     try {
         const { url } = req.body;
 
-        if (!url) {
-            return res
-                .status(400)
-                .json({ success: false, message: "YouTube URL is required" });
+        for (let i = 0; i < youtube_links.length; i++) {
+            let item = youtube_links[i];
+            const url = item.url;
+            const output = await youtubedl(url, {
+                dumpSingleJson: true,
+                noCheckCertificates: true,
+                noWarnings: true,
+                preferFreeFormats: true,
+                cookies: "../cookie.txt",
+                addHeader: ["referer:youtube.com", "user-agent:googlebot"]
+            });
+            item.url = output.url;
+            
+            
+            console.log("youtube_links", item);
         }
-
-        const output = await youtubedl(url, {
-            dumpSingleJson: true,
-            noCheckCertificates: true,
-            noWarnings: true,
-            preferFreeFormats: true,
-            cookies: "CLDbygEIk9vMAQ==",
-            addHeader: ["referer:youtube.com", "user-agent:googlebot"]
-        });
 
         return res.status(200).json({
             success: true,
-            data: output
+            data: "output"
         });
     } catch (error) {
         console.error("Error scraping YouTube:", error);
