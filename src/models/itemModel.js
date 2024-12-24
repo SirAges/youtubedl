@@ -6,7 +6,7 @@ const LiveSchema = new Schema(
             type: String,
             required: true
         },
-        view: {
+        views: {
             type: String,
             required: true
         },
@@ -30,6 +30,6 @@ const LiveSchema = new Schema(
     { timestamps: true }
 );
 
-const live = model("Live", LiveSchema);
+const Live = model("Live", LiveSchema);
 
-module.exports = live;
+module.exports = Live;
