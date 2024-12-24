@@ -13,11 +13,11 @@ const scrapYouTube = async (req, res, next) => {
                 noWarnings: true,
                 preferFreeFormats: true,
                 cookies: "../cookie.txt",
+                cookiesFromBrowser: "chrome",
                 addHeader: ["referer:youtube.com", "user-agent:googlebot"]
             });
             item.url = output.url;
-            
-            
+
             console.log("youtube_links", item);
         }
 
