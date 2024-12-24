@@ -1,6 +1,7 @@
 const youtubedl = require("youtube-dl-exec");
 const { youtube_links } = require("../lib/data");
 const path = require("path");
+
 const scrapYouTube = async (req, res, next) => {
     try {
         const { url } = req.body;
@@ -9,18 +10,15 @@ const scrapYouTube = async (req, res, next) => {
             let item = youtube_links[i];
             const url = item.url;
 
-            
-
             const output = await youtubedl(url, {
                 dumpSingleJson: true,
                 noCheckCertificates: true,
                 noWarnings: true,
                 preferFreeFormats: true,
                 addHeader: ["referer:youtube.com", "user-agent:googlebot"],
-                extraArgs: [
-                    `--cookies=${path.resolve(__dirname, "../../cookie.txt")}`
-                ] // Absolute path
+                cookies: `${path.resolve(__dirname, "../../cookie.txt")}`
             });
+
             item.url = output.url;
 
             console.log("youtube_links", item);
