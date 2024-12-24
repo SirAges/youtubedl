@@ -4,6 +4,7 @@ const path = require("path");
 const Live = require("../models/itemModel");
 
 const scrapYouTube = async (req, res, next) => {
+  
     try {
         const { youtubeId } = req.query;
         const url = `https://www.youtube.com/watch?v=${youtubeId}`;
@@ -24,6 +25,7 @@ const scrapYouTube = async (req, res, next) => {
         }
     } catch (error) {
         console.error("Error inserting YouTube links:", error);
+              return res.status(500).json(error);
     }
 };
 const addMany = async (req, res, next) => {
