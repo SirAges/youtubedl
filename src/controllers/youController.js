@@ -4,7 +4,6 @@ const path = require("path");
 const Live = require("../models/itemModel");
 
 const scrapYouTube = async (req, res, next) => {
-  
     try {
         const { youtubeId } = req.query;
         const url = `https://www.youtube.com/watch?v=${youtubeId}`;
@@ -13,19 +12,18 @@ const scrapYouTube = async (req, res, next) => {
         }
 
         const output = await youtubedl(url, {
-            dumpSingleJson: true,
+            getUrl: true,
             noCheckCertificates: true,
             noWarnings: true,
             preferFreeFormats: true,
             addHeader: ["referer:youtube.com", "user-agent:googlebot"],
             cookies: `${path.resolve(__dirname, "../../cookie.txt")}`
         });
-      
-            return res.status(200).json(output.url);
-        
+
+        return res.status(200).json(output);
     } catch (error) {
         console.error("Error inserting YouTube links:", error);
-              return res.status(500).json(error);
+        return res.status(500).json(error);
     }
 };
 const addMany = async (req, res, next) => {
